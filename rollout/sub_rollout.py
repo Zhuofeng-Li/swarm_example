@@ -14,7 +14,7 @@ class SubRolloutConfig(RolloutConfig):
     """Configuration for sub-agent rollout"""
     max_steps: int = 20  # Lower default for sub-agents
     step_hint: bool = True  # Show step hints in tool results
-    terminal_mode: bool = False  # Quieter by default
+    terminal_mode: bool = True
 
 
 class SubRollout(BaseRollout):

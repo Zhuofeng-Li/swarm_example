@@ -11,7 +11,7 @@ from openai import AsyncOpenAI
 logger = logging.getLogger(__name__)
 
 MAX_RETRIES = 3
-RETRY_DELAY = 2  # seconds
+RETRY_DELAY = 5  # seconds
 
 
 class LLMClient:
@@ -31,9 +31,19 @@ class LLMClient:
         self.client = AsyncOpenAI(
             api_key=self.api_key,
             base_url=self.base_url,
-            timeout=httpx.Timeout(120.0, connect=30.0),
+            timeout=httpx.Timeout(300.0, connect=30.0),
             max_retries=0,  # We handle retries ourselves
         )
+
+    def _token_param_name(self) -> str:
+        """Return the preferred output-token parameter for this endpoint/model."""
+        base_url = (self.base_url or "").lower()
+        model_id = (self.model_id or "").lower()
+
+        if "api.openai.com" in base_url or model_id.startswith(("gpt-5", "o1", "o3", "o4")):
+            return "max_completion_tokens"
+
+        return "max_tokens"
 
     async def chat(
         self,
@@ -53,11 +63,12 @@ class LLMClient:
         Returns:
             Response dict with content and optional tool_calls
         """
+        token_param = self._token_param_name()
         kwargs = {
             "model": self.model_id,
             "messages": messages,
             "temperature": temperature,
-            "max_tokens": max_tokens,
+            token_param: max_tokens,
         }
 
         if tools:

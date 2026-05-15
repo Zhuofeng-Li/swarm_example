@@ -20,6 +20,9 @@ import sys
 # Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from dotenv import load_dotenv
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env"))
+
 from agent.agent import Agent, AgentConfig
 from rollout.main_rollout import MainRollout
 from rollout.base import RolloutConfig

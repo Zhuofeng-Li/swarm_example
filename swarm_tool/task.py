@@ -3,9 +3,9 @@
 import logging
 from typing import Dict, List, Any, Optional
 
-from ..tool.base import BaseTool, ToolResult
-from ..agent.agent import Agent, AgentConfig
-from ..rollout.sub_rollout import SubRollout, SubRolloutConfig
+from tool.base import BaseTool, ToolResult
+from agent.agent import Agent, AgentConfig
+from rollout.sub_rollout import SubRollout, SubRolloutConfig
 
 logger = logging.getLogger(__name__)
 
@@ -152,7 +152,6 @@ class TaskTool(BaseTool):
             subagent = Agent(
                 config=subagent_config,
                 tools=subagent_tools,
-                llm_client=self.parent_agent.llm_client if self.parent_agent else None,
             )
 
             # Prepare context if forking
@@ -167,7 +166,7 @@ class TaskTool(BaseTool):
             rollout_config = SubRolloutConfig(
                 max_steps=self.max_steps,
                 step_hint=True,
-                terminal_mode=False,
+                terminal_mode=True,
             )
 
             sub_rollout = SubRollout(rollout_config)

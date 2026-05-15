@@ -18,6 +18,9 @@ import sys
 # Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from dotenv import load_dotenv
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env"))
+
 from agent.agent import Agent, AgentConfig
 from rollout.main_rollout import MainRollout
 from rollout.base import RolloutConfig
@@ -65,10 +68,10 @@ async def main():
         system_prompt=SYSTEM_PROMPT,
         model_id="kimi-k2.5",
         api_key=kimi_api_key,
-        api_base_url="https://api.moonshot.cn/v1",
+        api_base_url="https://api.moonshot.ai/v1",
         subagent_model_id="kimi-k2.5",
         subagent_api_key=kimi_api_key,
-        subagent_api_base_url="https://api.moonshot.cn/v1",
+        subagent_api_base_url="https://api.moonshot.ai/v1",
         temperature=1.0,  # kimi-k2.5 requires temperature=1.0
     )
 

@@ -3,7 +3,7 @@
 import logging
 from typing import Dict, Any
 
-from ..tool.base import BaseTool, ToolResult
+from tool.base import BaseTool, ToolResult
 
 logger = logging.getLogger(__name__)
 

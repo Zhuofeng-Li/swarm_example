@@ -54,7 +54,7 @@ class SearchTool(BaseTool):
             "required": ["query"]
         }
 
-    async def execute(self, query: str) -> ToolResult:
+    async def execute(self, query: str, topn: int = 5, **kwargs) -> ToolResult:
         """Execute search using Serper API
 
         Args:
@@ -96,7 +96,7 @@ class SearchTool(BaseTool):
 
             # Organic search results
             organic = data.get("organic", [])
-            for i, item in enumerate(organic[:5], 1):
+            for i, item in enumerate(organic[:topn], 1):
                 title = item.get("title", "No title")
                 snippet = item.get("snippet", "No description")
                 link = item.get("link", "No URL")

@@ -5,8 +5,8 @@ import logging
 from dataclasses import dataclass, field
 from typing import Dict, List, Any, Optional
 
-from ..utils.llm_client import LLMClient
-from ..tool.base import BaseTool, ToolResult
+from utils.llm_client import LLMClient
+from tool.base import BaseTool, ToolResult
 
 logger = logging.getLogger(__name__)
 
@@ -173,7 +173,7 @@ class Agent:
                 arguments = {}
 
             # Execute tool
-            result = await self.execute_tool(tool_name, arguments)
+            result = await self.execute_tool(tool_name, arguments) # TODO: update to parallel 
 
             # Format for conversation
             results.append({
