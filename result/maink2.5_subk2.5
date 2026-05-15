@@ -1296,3 +1296,351 @@ Tool Calls:
 Tool Calls:
   - search
     Args: {"query": "\"Humanity's Last Exam\" biology \"300 questions\" OR \"chem-bio subset\""}
+
+============================================================
+[Step 7]
+============================================================
+
+Content:
+基于我的搜索，我现在可以为您整理一份全面的大学本科、研究生及科研级别生物AI基准测试报告。
+
+---
+
+# 🧬 生物AI基准测试全面汇总报告
+
+## 一、核心综合基准测试（含生物部分）
+
+### 1. Humanity's Last Exam (HLE) - 人类最后考试
+
+| 属性 | 详情 |
+|------|------|
+| **全称** | Humanity's Last Exam |
+| **简称** | HLE |
+| **创建机构** | Scale AI 与全球领域专家合作 |
+| **题目难度** | 🔴 **专家级/研究级**（博士及以上） |
+| **生物部分规模** | 约321道化学/生物问题（占总数约13%） |
+| **题目类型** | 多项选择题、多模态（约10%含图表） |
+| **涵盖分支** | 分子生物学、细胞生物学、生物化学、遗传学 |
+| **数据集链接** | https://agi.safe.ai/ |
+| **当前SOTA表现** | Grok 4: 51%（带工具）; Claude 4: 约35%; GPT-4: 约26% |
+| **专家基准** | 人类专家约65-70%准确率 |
+
+**特点**：被誉为"最终的封闭式学术基准"，问题由全球专家创建，具有广泛学科覆盖。近期研究发现约30%的化学/生物答案可能存在争议。
+
+---
+
+### 2. GPQA (Graduate-Level Google-Proof Q&A)
+
+| 属性 | 详情 |
+|------|------|
+| **全称** | Graduate-Level Google-Proof Q&A Benchmark |
+| **简称** | GPQA |
+| **创建机构** | NYU, Meta AI, 其他研究机构 |
+| **题目难度** | 🔴 **研究生/博士级** |
+| **总题目数** | 448道多项选择题 |
+| **生物部分** | 约148道生物问题（GPQA-Biology子集） |
+| **题目类型** | 多项选择题（Google-proof设计） |
+| **涵盖分支** | 分子生物学、细胞生物学、生物化学、遗传学、生理学 |
+| **数据集链接** | https://arxiv.org/abs/2311.12022 |
+| **GPQA-Diamond** | 最难198题子集，PhD专家准确率69.7% |
+| **当前SOTA表现** | GPQA-Diamond: Gemini 3.1 Pro 94.1%, Claude Opus 4.7 94.2% |
+| **GPQA-Biology表现** | OpenAI o1: 69.2%（领先） |
+
+**特点**：问题设计为"Google-proof"，即即使能上网搜索，非专家也难以回答。分为Extended、Diamond、Biology等子集。
+
+---
+
+### 3. SuperGPQA
+
+| 属性 | 详情 |
+|------|------|
+| **全称** | SuperGPQA: Scaling LLM Evaluation across 285 Graduate Disciplines |
+| **简称** | SuperGPQA |
+| **创建机构** | 多机构合作（Hugging Face等） |
+| **题目难度** | 🔴 **研究生/博士级** |
+| **总题目数** | 26,529道多项选择题 |
+| **生物部分** | 约7,000+道（涵盖多个生物子领域） |
+| **学科覆盖** | 13大学科、72个领域、285个研究生级学科 |
+| **题目类型** | 多项选择题 |
+| **涵盖分支** | 分子生物学、细胞生物学、遗传学、生态学、进化生物学、生物信息学等 |
+| **数据集链接** | https://huggingface.co/datasets/m-a-p/SuperGPQA |
+| **GitHub** | https://github.com/SuperGPQA/SuperGPQA |
+| **当前表现** | 因基准较新，各模型表现持续更新中 |
+
+**特点**：GPQA的大规模扩展版，覆盖285个研究生级学科，是迄今为止最全面的学科覆盖基准测试。
+
+---
+
+### 4. MMLU-Pro (Massive Multitask Language Understanding - Professional)
+
+| 属性 | 详情 |
+|------|------|
+| **全称** | MMLU Professional/Improved Version |
+| **简称** | MMLU-Pro |
+| **创建机构** | TIGER-AI-Lab, UMass Amherst |
+| **题目难度** | 🟡 **本科高年级/研究生初级** |
+| **总题目数** | 12,000+道问题 |
+| **生物部分** | 生物学相关约800-1,000道 |
+| **题目类型** | 多项选择题（每题10个选项） |
+| **涵盖分支** | 基础生物学、分子生物学、细胞生物学、遗传学、生态学 |
+| **数据集链接** | https://github.com/TIGER-AI-Lab/MMLU-Pro |
+| **当前SOTA表现** | GPT-4 + CoT: 约63%; 最佳模型约70%+ |
+| **原始MMLU表现** | GPT-4: 86.4%（已接近饱和） |
+
+**特点**：相比原始MMLU，MMLU-Pro增加了选项数量（4→10），显著提高了难度，减少了随机猜测的概率。
+
+---
+
+### 5. 原始MMLU (Massive Multitask Language Understanding)
+
+| 属性 | 详情 |
+|------|------|
+| **全称** | Massive Multitask Language Understanding |
+| **简称** | MMLU |
+| **创建机构** | UC Berkeley, Columbia University, University of Chicago |
+| **题目难度** | 🟢 **本科初级-中级** |
+| **总题目数** | 15,908道问题 |
+| **生物部分** | 约1,500道（含高中生物、大学生物、医学） |
+| **生物子类别** | 高中生物、大学生物、解剖学、遗传学、医学遗传学 |
+| **题目类型** | 多项选择题（4选项） |
+| **涵盖分支** | 全面覆盖从高中到大学的生物知识 |
+| **数据集链接** | https://github.com/hendrycks/test |
+| **当前SOTA表现** | 顶级模型已达88%+（接近人类专家89.8%） |
+
+**特点**：最广泛使用的通用AI基准，但生物部分已接近饱和，区分度降低。
+
+---
+
+## 二、专业生物基准测试
+
+### 6. PubMedQA
+
+| 属性 | 详情 |
+|------|------|
+| **全称** | PubMedQA: A Dataset for Biomedical Research Question Answering |
+| **简称** | PubMedQA |
+| **创建机构** | Duke University, NIH等 |
+| **题目难度** | 🔴 **研究级/专家级** |
+| **数据集规模** | 1K专家标注 + 61.2K未标注 + 211.3K人工生成 |
+| **任务类型** | 阅读理解、推理、是/否/也许回答 |
+| **涵盖分支** | 生物医学研究文献、分子生物学、临床医学 |
+| **特点** | 需要基于PubMed摘要进行定量推理 |
+| **数据集链接** | https://pubmedqa.github.io/ |
+| **当前SOTA表现** | 顶级模型在专家标注集上达80%+准确率 |
+
+**特点**：首个需要基于生物医学研究文献进行定量内容推理的QA数据集。
+
+---
+
+### 7. BioASQ
+
+| 属性 | 详情 |
+|------|------|
+| **全称** | BioASQ: Biomedical Semantic Indexing and Question Answering |
+| **简称** | BioASQ |
+| **创建机构** | 欧盟资助项目，多机构合作 |
+| **题目难度** | 🔴 **研究级/专家级** |
+| **任务类型** | 语义索引、事实型QA、总结型QA、列表型QA |
+| **涵盖分支** | 生物医学文献、分子生物学、临床医学 |
+| **数据集链接** | http://www.bioasq.org/ |
+| **当前表现** | 持续举办年度挑战赛，跟踪最新进展 |
+
+**特点**：国际生物医学QA挑战赛，是领域内的参考基准点。
+
+---
+
+### 8. LAB-Bench / LABBench2 ⭐新
+
+| 属性 | 详情 |
+|------|------|
+| **全称** | Language Agent Biology Benchmark |
+| **简称** | LAB-Bench |
+| **创建机构** | Future House |
+| **题目难度** | 🔴 **研究级** |
+| **任务数量** | 原始：700+任务；LABBench2：1,900+任务 |
+| **任务类型** | 文献理解、实验设计、数据分析、机制推理 |
+| **涵盖分支** | 分子生物学、细胞生物学、遗传学、病毒学 |
+| **特点** | 专为评估AI Agent在生物学文献上的能力设计 |
+| **数据集链接** | https://github.com/Future-House/LAB-Bench |
+
+**特点**：专注于评估AI系统在真实生物学文献理解和研究任务上的表现。
+
+---
+
+### 9. BixBench ⭐新
+
+| 属性 | 详情 |
+|------|------|
+| **全称** | BixBench: Comprehensive Benchmark for LLM-based Agents in Bioinformatics |
+| **简称** | BixBench |
+| **创建机构** | Future House |
+| **题目难度** | 🔴 **研究级/专家级** |
+| **数据集规模** | 50+真实场景，近300道开放式问题 |
+| **任务类型** | 开放式数据分析、生物信息学工作流 |
+| **涵盖分支** | 生物信息学、计算生物学、基因组学 |
+| **特点** | 评估AI Agent在真实生物信息学分析中的表现 |
+| **数据集链接** | https://arxiv.org/abs/2503.00096 |
+| **当前表现** | K-Dense Web: 90% (BixBench-Verified-50) |
+
+**特点**：专注于真实生物信息学数据分析场景，非简单的知识问答。
+
+---
+
+### 10. HeurekaBench ⭐新
+
+| 属性 | 详情 |
+|------|------|
+| **全称** | HeurekaBench: Benchmarking Framework for AI Co-scientist |
+| **简称** | HeurekaBench |
+| **创建机构** | EPFL MLBio Lab |
+| **题目难度** | 🔴 **研究级** |
+| **数据集规模** | 13篇论文，50个问题（单细胞生物学） |
+| **任务类型** | 开放性问题、假设生成、实验设计 |
+| **涵盖分支** | 单细胞生物学、细胞生物学 |
+| **数据集链接** | https://github.com/mlbio-epfl/HeurekaBench |
+
+**特点**：评估AI作为"合作科学家"在单细胞生物学领域的能力，侧重开放式科研问题。
+
+---
+
+### 11. BioAgent Bench
+
+| 属性 | 详情 |
+|------|------|
+| **全称** | BioAgent Bench: AI Agent Evaluation Suite for Bioinformatics |
+| **简称** | BioAgent Bench |
+| **创建机构** | 多机构合作 |
+| **题目难度** | 🔴 **研究级** |
+| **任务类型** | 端到端生物信息学Agent工作流 |
+| **涵盖分支** | 生物信息学、基因组学、蛋白质组学 |
+| **数据集链接** | https://arxiv.org/html/2601.21800v2 |
+
+**特点**：专注于评估AI Agent在端到端生物信息学分析工作流中的表现。
+
+---
+
+### 12. 医学相关生物基准
+
+| 基准测试 | 说明 | 难度 | 数据集链接 |
+|---------|------|------|-----------|
+| **USMLE (United States Medical Licensing Examination)** | 美国医师执照考试，含大量生物医学知识 | 🔴 专家级 | 各AI公司自有评测 |
+| **MedQA** | 医学问答基准 | 🔴 专家级 | https://github.com/jind11/MedQA |
+| **Biomedical Admissions Test (BMAT)** | 英国医学入学考试 | 🟡 本科高年级 | 公开数据集 |
+
+---
+
+## 三、专业领域生物基准
+
+### 生物信息学与计算生物学
+
+| 基准测试 | 说明 | 难度 | 创建机构 |
+|---------|------|------|---------|
+| **GUANinE** | 基因组AI序列基准 | 🔴 研究级 | 多机构 |
+| **DeepProtein** | 蛋白质学习8项任务基准 | 🔴 研究级 | 学术机构 |
+| **BioMysteryBench** | 生物信息学Agent评估 | 🔴 研究级 | Anthropic |
+
+---
+
+## 四、专家级（研究生以上）测试重点标注 ⭐
+
+### 🔴 博士/研究级难度
+
+| 排名 | 基准测试 | 难度说明 | 主要挑战 |
+|------|---------|---------|---------|
+| 1 | **HLE** (化学/生物部分) | 极高 | 前沿知识、研究级问题 |
+| 2 | **GPQA-Diamond** | 极高 | Google-proof问题，非专家难以解答 |
+| 3 | **SuperGPQA** | 极高 | 285学科全面覆盖，问题深入 |
+| 4 | **BixBench** | 高 | 真实生物信息学分析场景 |
+| 5 | **LABBench2** | 高 | 文献理解、实验设计、机制推理 |
+| 6 | **PubMedQA** | 高 | 生物医学文献定量推理 |
+| 7 | **BioASQ** | 高 | 生物医学语义索引与QA |
+| 8 | **HeurekaBench** | 高 | 单细胞生物学开放科研问题 |
+
+### 🟡 本科高年级/研究生初级难度
+
+| 排名 | 基准测试 | 难度说明 |
+|------|---------|---------|
+| 1 | **MMLU-Pro** | 10选项设计，区分度高 |
+| 2 | **GPQA-Extended** | 完整GPQA集合 |
+| 3 | **原始MMLU** (大学生物) | 基础但全面 |
+
+---
+
+## 五、当前最先进AI模型表现汇总
+
+### 综合表现排名（生物相关基准）
+
+| 模型 | GPQA-Diamond | GPQA-Bio | MMLU-Pro | HLE |
+|------|-------------|----------|----------|-----|
+| **Claude Opus 4.7** | 94.2% | - | - | - |
+| **Gemini 3.1 Pro** | 94.1% | - | - | - |
+| **GPT-5.5** | 93.6% | - | - | - |
+| **OpenAI o1** | - | 69.2% | - | - |
+| **OpenAI o3** | - | - | - | ~35% |
+| **Grok 4** | - | - | - | 51% (带工具) |
+| **Claude 3.5 Sonnet** | ~65% | - | ~63% | ~30% |
+| **GPT-4** | ~39% | - | ~53.5% | ~26% |
+
+*注：部分数据为近似值，具体请参考官方leaderboard*
+
+---
+
+## 六、数据集获取方式总结
+
+| 基准测试 | 获取链接 | 格式 |
+|---------|---------|------|
+| **HLE** | https://agi.safe.ai/ | JSON |
+| **GPQA** | https://huggingface.co/datasets/Idavidrein/gpqa | JSON |
+| **SuperGPQA** | https://huggingface.co/datasets/m-a-p/SuperGPQA | JSON |
+| **MMLU-Pro** | https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro | JSON |
+| **PubMedQA** | https://pubmedqa.github.io/ | JSON |
+| **BioASQ** | http://www.bioasq.org/ | XML/JSON |
+| **LAB-Bench** | https://github.com/Future-House/LAB-Bench | JSON |
+| **BixBench** | https://github.com/Future-House/BixBench | Python/Jupyter |
+
+---
+
+## 七、研究建议
+
+1. **对于基础能力评估**：使用MMLU-Pro生物部分
+2. **对于研究生级推理能力**：使用GPQA-Biology或GPQA-Diamond
+3. **对于研究级文献理解**：使用LABBench2
+4. **对于生物信息学Agent**：使用BixBench或BioAgent Bench
+5. **对于最前沿AI能力测试**：使用HLE的化学/生物部分
+6. **对于全面学科覆盖**：使用SuperGPQA
+
+---
+
+*报告生成时间：2025年6月*  
+*数据来源：arXiv论文、Hugging Face数据集、各基准官方GitHub仓库、官方Leaderboard*
+
+============================================================
+[Step 0]
+============================================================
+
+Content:
+我将为您搜集医学AI基准测试的信息。让我先搜索相关的基准测试资料。
+
+Tool Calls:
+  - search
+    Args: {"query": "Humanity's Last Exam HLE medical benchmark AI performance"}
+  - search
+    Args: {"query": "GPQA benchmark medical graduate level AI performance 2024"}
+  - search
+    Args: {"query": "MedQA USMLE benchmark medical AI performance 2024"}
+  - search
+    Args: {"query": "PubMedQA biomedical question answering benchmark"}
+
+============================================================
+[Step 1]
+============================================================
+
+Tool Calls:
+  - search
+    Args: {"query": "MMLU MMLU-Pro medical benchmark medicine subtest performance"}
+  - search
+    Args: {"query": "SuperGPQA benchmark medical science AI performance 2024"}
+  - search
+    Args: {"query": "MedMCQA medical benchmark AI performance clinical medicine"}
+  - search
+    Args: {"query": "MedBullets medical board exam benchmark AI"}
