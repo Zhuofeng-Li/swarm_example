@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{REPORT_TITLE}}</title>
+<style>
+  :root {
+    --primary: #2563eb;
+    --primary-light: #dbeafe;
+    --success: #16a34a;
+    --success-light: #dcfce7;
+    --warning: #ea580c;
+    --warning-light: #ffedd5;
+    --danger: #dc2626;
+    --danger-light: #fee2e2;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    line-height: 1.7;
+    color: var(--gray-800);
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+
+  h1 {
+    font-size: 2rem;
+    color: var(--gray-900);
+    border-bottom: 3px solid var(--primary);
+    padding-bottom: 16px;
+    margin-bottom: 32px;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    color: var(--gray-900);
+    margin-top: 56px;
+    padding: 12px 16px;
+    background: var(--primary-light);
+    border-left: 5px solid var(--primary);
+    border-radius: 4px;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    color: var(--gray-800);
+    margin-top: 36px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--gray-200);
+  }
+
+  h4 {
+    font-size: 1.05rem;
+    color: var(--gray-700);
+    margin-top: 24px;
+    padding-left: 10px;
+    border-left: 3px solid var(--primary);
+  }
+
+  p { margin: 12px 0; }
+
+  blockquote {
+    margin: 16px 0;
+    padding: 14px 20px;
+    background: var(--warning-light);
+    border-left: 4px solid var(--warning);
+    border-radius: 4px;
+    color: var(--gray-700);
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0 24px;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 0.95rem;
+  }
+
+  th {
+    background: var(--gray-700);
+    color: white;
+    text-align: left;
+    padding: 10px 14px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--gray-200);
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) { background: var(--gray-50); }
+  tr:hover { background: var(--primary-light); }
+
+  td strong { color: var(--primary); }
+
+  code {
+    background: var(--gray-100);
+    border: 1px solid var(--gray-200);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 0.88em;
+    color: #be185d;
+  }
+
+  ul, ol { padding-left: 28px; }
+  li { margin: 6px 0; }
+
+  hr {
+    border: none;
+    border-top: 1px dashed var(--gray-300);
+    margin: 40px 0;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: 600;
+    margin: 0 2px;
+  }
+  .badge-correct { background: var(--success-light); color: var(--success); }
+  .badge-wrong   { background: var(--danger-light);  color: var(--danger);  }
+  .badge-neutral { background: var(--gray-200);      color: var(--gray-700);}
+  .badge-warn    { background: var(--warning-light); color: var(--warning); }
+
+  .conclusion {
+    background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+    border-left: 5px solid var(--warning);
+    padding: 14px 18px;
+    border-radius: 4px;
+    margin: 16px 0;
+    font-weight: 500;
+  }
+
+  .conclusion-positive {
+    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+    border-left: 5px solid var(--success);
+  }
+
+  .case-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .toc {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 20px 28px;
+    margin: 24px 0 40px;
+  }
+  .toc h3 { margin-top: 0; border: none; }
+  .toc ul { list-style: none; padding-left: 0; }
+  .toc li { margin: 8px 0; }
+  .toc a {
+    color: var(--primary);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--primary);
+  }
+  .toc a:hover { background: var(--primary-light); }
+  .toc .toc-sub { padding-left: 24px; font-size: 0.95em; }
+
+  .metric-highlight {
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  .qid-tag {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: 600;
+    margin-right: 8px;
+  }
+
+  em {
+    background: #fef3c7;
+    font-style: normal;
+    padding: 1px 4px;
+    border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!--
+USAGE
+-----
+Replace the placeholders below with the actual analysis content.
+
+Sections to fill in:
+  1. <h1>{{REPORT_TITLE}}</h1>
+  2. Table of contents (.toc)
+  3. <h2 id="sec1">一、Metric 对比</h2>     — accuracy + latency tables
+  4. <h2 id="sec2">二、题号全景总览</h2>    — category table with qid lists
+  5. <h2 id="sec3">三、Per-case deep dive</h2> — one .case-card per question
+  6. Conclusion summary
+
+Reusable snippets:
+  - Metric table:        <table><thead>...<tbody>...</table>
+  - Verdict badge:       <span class="badge badge-correct">✅ 答对</span>
+                         <span class="badge badge-wrong">❌ 答错</span>
+                         <span class="badge badge-warn">未能锁定</span>
+  - Conclusion box:      <div class="conclusion">...</div>           (orange — neutral/negative)
+                         <div class="conclusion conclusion-positive">...</div> (green — positive)
+  - Case card:           <div class="case-card" id="qidN">
+                            <h3><span class="qid-tag">QID=N</span>题目简述</h3>
+                            ...metrics table...
+                            ...verdict box...
+                         </div>
+  - Direct quote:        <em>"原文引用"</em>
+  - Code/keyword:        <code>search keyword</code>
+-->
+
+<h1>{{REPORT_TITLE}}</h1>
+
+<div class="toc">
+  <h3>目录</h3>
+  <ul>
+    <li><a href="#sec1">一、Metric 对比：Accuracy 与 Latency</a></li>
+    <li><a href="#sec2">二、题号全景总览</a></li>
+    <li><a href="#sec3">三、Per-case deep dive</a></li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 1: Metric Comparison                                  -->
+<!-- ============================================================ -->
+<h2 id="sec1">一、Metric 对比：Accuracy 与 Latency</h2>
+
+<!-- Insert accuracy table, latency table, correct-vs-wrong table, subagent table here -->
+
+<!-- ============================================================ -->
+<!-- SECTION 2: Question Categorization                            -->
+<!-- ============================================================ -->
+<h2 id="sec2">二、题号全景总览</h2>
+
+<table>
+  <thead>
+    <tr><th>分类</th><th>题数</th><th>题号</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><span class="badge badge-correct">两者均答对</span></td><td>N</td><td>...</td></tr>
+    <tr><td><span class="badge badge-correct">仅 B 答对</span></td><td>N</td><td>...</td></tr>
+    <tr><td><span class="badge badge-wrong">两者均答错</span></td><td>N</td><td>...</td></tr>
+    <tr><td><span class="badge badge-neutral">仅 A 答对</span></td><td>N</td><td>...</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ -->
+<!-- SECTION 3: Per-Case Deep Dive                                 -->
+<!-- ============================================================ -->
+<h2 id="sec3">三、Per-case deep dive</h2>
+
+<div class="case-card" id="qidN">
+  <h3><span class="qid-tag">QID=N</span>题目简述</h3>
+
+  <table>
+    <thead><tr><th>指标</th><th>A</th><th>B</th></tr></thead>
+    <tbody>
+      <tr><td>Turns</td><td>...</td><td>...</td></tr>
+      <tr><td>Tool Calls</td><td>...</td><td>...</td></tr>
+      <tr><td>Elapsed</td><td>...</td><td>...</td></tr>
+      <tr><td>Subagents</td><td>—</td><td>N</td></tr>
+      <tr><td>结果</td>
+          <td><span class="badge badge-wrong">❌ 答错</span></td>
+          <td><span class="badge badge-correct">✅ 答对</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="conclusion">
+    <strong>结论：……</strong> 对失败方搜索路径与胜出方关键转折点的分析。
+  </div>
+</div>
+
+</div>
+</body>
+</html>

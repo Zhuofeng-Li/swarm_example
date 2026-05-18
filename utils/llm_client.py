@@ -4,14 +4,16 @@ import os
 import json
 import logging
 import asyncio
+import random
 from typing import Dict, List, Any, Optional
 
-from openai import AsyncOpenAI
+from openai import AsyncOpenAI, RateLimitError
 
 logger = logging.getLogger(__name__)
 
 MAX_RETRIES = 3
 RETRY_DELAY = 5  # seconds
+RATE_LIMIT_MAX_RETRIES = 10
 
 
 class LLMClient:
@@ -50,6 +52,7 @@ class LLMClient:
         messages: List[Dict[str, Any]],
         tools: Optional[List[Dict[str, Any]]] = None,
         temperature: float = 0.7,
+        top_p: float = 0.95,
         max_tokens: int = 4096,
     ) -> Dict[str, Any]:
         """Send chat completion request with retry logic
@@ -58,6 +61,7 @@ class LLMClient:
             messages: List of conversation messages
             tools: Optional list of tool definitions
             temperature: Sampling temperature
+            top_p: Nucleus sampling parameter
             max_tokens: Maximum tokens to generate
 
         Returns:
@@ -68,6 +72,7 @@ class LLMClient:
             "model": self.model_id,
             "messages": messages,
             "temperature": temperature,
+            "top_p": top_p,
             token_param: max_tokens,
         }
 
@@ -76,7 +81,10 @@ class LLMClient:
             kwargs["tool_choice"] = "auto"
 
         last_error = None
-        for attempt in range(MAX_RETRIES):
+        rate_limit_attempt = 0
+        other_attempt = 0
+
+        while True:
             try:
                 response = await self.client.chat.completions.create(**kwargs)
 
@@ -110,13 +118,24 @@ class LLMClient:
 
                 return result
 
+            except RateLimitError as e:
+                last_error = e
+                rate_limit_attempt += 1
+                if rate_limit_attempt > RATE_LIMIT_MAX_RETRIES:
+                    break
+                delay = min(60 * (2 ** (rate_limit_attempt - 1)), 600) + random.uniform(0, 10)
+                logger.warning(f"Rate limit hit (attempt {rate_limit_attempt}/{RATE_LIMIT_MAX_RETRIES}), retrying in {delay:.1f}s")
+                await asyncio.sleep(delay)
+
             except Exception as e:
                 last_error = e
-                logger.warning(f"LLM request attempt {attempt + 1}/{MAX_RETRIES} failed: {e}")
-                if attempt < MAX_RETRIES - 1:
-                    await asyncio.sleep(RETRY_DELAY * (attempt + 1))
+                other_attempt += 1
+                if other_attempt >= MAX_RETRIES:
+                    break
+                logger.warning(f"LLM request attempt {other_attempt}/{MAX_RETRIES} failed: {e}")
+                await asyncio.sleep(RETRY_DELAY * other_attempt)
 
-        logger.error(f"LLM request failed after {MAX_RETRIES} attempts: {last_error}")
+        logger.error(f"LLM request failed: {last_error}")
         return {
             "role": "assistant",
             "content": f"Error: {str(last_error)}",

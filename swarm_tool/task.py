@@ -22,7 +22,8 @@ class TaskTool(BaseTool):
         agent_registry: Dict[str, Dict[str, Any]],
         parent_agent: Optional[Agent] = None,
         parent_tools: Optional[List[BaseTool]] = None,
-        max_steps: int = 20,
+        max_steps: int = 100,
+        terminal_mode: bool = False,
     ):
         """Initialize Task tool
 
@@ -36,6 +37,7 @@ class TaskTool(BaseTool):
         self.parent_agent = parent_agent
         self.parent_tools = parent_tools or []
         self.max_steps = max_steps
+        self.terminal_mode = terminal_mode
         self.subagent_counter = 0
         self.sub_results: List[Dict[str, Any]] = []  # Store sub-agent results
 
@@ -139,14 +141,15 @@ class TaskTool(BaseTool):
                 model_id=subagent_model,
                 api_key=subagent_api_key,
                 api_base_url=subagent_base_url,
-                max_tokens=self.parent_agent.config.max_tokens if self.parent_agent else 4096,
-                temperature=self.parent_agent.config.temperature if self.parent_agent else 0.7,
+                max_tokens=self.parent_agent.config.max_tokens if self.parent_agent else 8192,
+                temperature=self.parent_agent.config.temperature if self.parent_agent else 1.0,
+                top_p=self.parent_agent.config.top_p if self.parent_agent else 0.95,
             )
 
             # Create sub-agent with tools (excluding swarm tools to prevent recursion)
             subagent_tools = [
                 tool for tool in self.parent_tools
-                if tool.name not in ("create_subagent", "task")
+                if tool.name not in ("create_subagent", "assign_task")
             ]
 
             subagent = Agent(
@@ -166,7 +169,7 @@ class TaskTool(BaseTool):
             rollout_config = SubRolloutConfig(
                 max_steps=self.max_steps,
                 step_hint=True,
-                terminal_mode=True,
+                terminal_mode=self.terminal_mode,
             )
 
             sub_rollout = SubRollout(rollout_config)

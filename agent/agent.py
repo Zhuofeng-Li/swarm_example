@@ -22,8 +22,9 @@ class AgentConfig:
     subagent_model_id: Optional[str] = None  # Model for sub-agents, defaults to model_id
     subagent_api_key: Optional[str] = None  # API key for sub-agents
     subagent_api_base_url: Optional[str] = None  # Base URL for sub-agents
-    max_tokens: int = 4096
-    temperature: float = 0.7
+    max_tokens: int = 8192
+    temperature: float = 1.0
+    top_p: float = 0.95
 
 
 class Agent:
@@ -108,6 +109,7 @@ class Agent:
             messages=messages,
             tools=tool_schemas,
             temperature=self.config.temperature,
+            top_p=self.config.top_p,
             max_tokens=self.config.max_tokens,
         )
 
@@ -152,34 +154,32 @@ class Agent:
         self,
         tool_calls: List[Dict[str, Any]]
     ) -> List[Dict[str, Any]]:
-        """Execute multiple tool calls
+        """Execute multiple tool calls concurrently
 
         Args:
             tool_calls: List of tool call dicts from LLM response
 
         Returns:
-            List of tool results formatted for conversation
+            List of tool results formatted for conversation (order preserved)
         """
-        results = []
+        import asyncio
 
-        for tc in tool_calls:
+        async def _execute_one(tc: Dict[str, Any]) -> Dict[str, Any]:
             tool_name = tc["function"]["name"]
             args_str = tc["function"]["arguments"]
 
-            # Parse arguments
             try:
                 arguments = json.loads(args_str) if isinstance(args_str, str) else args_str
             except json.JSONDecodeError:
                 arguments = {}
 
-            # Execute tool
-            result = await self.execute_tool(tool_name, arguments) # TODO: update to parallel 
+            result = await self.execute_tool(tool_name, arguments)
 
-            # Format for conversation
-            results.append({
+            return {
                 "tool_call_id": tc.get("id", tool_name),
                 "role": "tool",
                 "content": result.to_str(),
-            })
+            }
 
-        return results
+        results = await asyncio.gather(*[_execute_one(tc) for tc in tool_calls])
+        return list(results)
